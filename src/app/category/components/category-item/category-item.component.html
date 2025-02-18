@@ -1,0 +1,62 @@
+<h2>@if (isEditMode()) { Edit Category } @else { New Category }</h2>
+
+<form [formGroup]="categoryForm" (ngSubmit)="saveCategory()">
+    <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" placeholder="Enter category name" />
+    </mat-form-field>
+    <div class="error-messages">
+        @if (categoryForm.controls['name'].invalid && categoryForm.controls['name'].touched) {
+
+            @if (categoryForm.controls['name'].errors?.['required']) {
+                <span class="error-text">The category name is required.</span>
+            }
+
+            @if (categoryForm.controls['name'].errors?.['minlength']) {
+                <span class="error-text">The category name requires a minimum of 3 characters.</span>
+            }
+        }
+    </div>
+  
+    @if (isEditMode()) {
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Created Date</mat-label>
+            <input matInput formControlName="createdDate"/>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Modified Date</mat-label>
+            <input matInput formControlName="modifiedDate"/>
+        </mat-form-field>
+
+        <mat-checkbox formControlName="isDeleted">Is Deleted</mat-checkbox>
+
+        @if (booksCategory.length > 0) {
+            <h3 class="books-title">Books</h3>
+            <mat-chip-listbox>
+                @for (book of booksCategory; track book) {
+                    <mat-chip color="primary" selected  (click)="onClickBook(book)">
+                    {{ book.title }}
+                    </mat-chip>
+                }
+            </mat-chip-listbox>
+        }
+    }
+
+    <div class="button-container">
+        <button mat-raised-button
+                color="warn"
+                type="button"
+                matTooltip="Cancel"
+                (click)="onClickCancel()">
+            Cancel <mat-icon>cancel_presentation</mat-icon>
+        </button>
+
+        <button mat-raised-button
+            color="primary"
+            type="submit"
+            matTooltip="Save Category">
+            Save <mat-icon>save</mat-icon>
+        </button>
+  </div>
+</form>

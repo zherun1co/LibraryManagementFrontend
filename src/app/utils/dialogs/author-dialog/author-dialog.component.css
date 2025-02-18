@@ -1,0 +1,12 @@
+::ng-deep mat-dialog-content {
+    height: 75vh !important;
+    max-height: 80vh !important;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden !important;
+}
+
+::ng-deep app-author-list {
+    flex-grow: 1;
+    overflow: auto;
+}

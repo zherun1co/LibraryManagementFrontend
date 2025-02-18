@@ -1,0 +1,89 @@
+<h2>Books</h2>
+
+<div class="filter-container">
+  <mat-form-field class="filter-item">
+    <mat-label>Author</mat-label>
+    <input matInput [formControl]="authorFilter" placeholder="Enter author name">
+  </mat-form-field>
+
+  <mat-form-field class="filter-item">
+    <mat-label>Title</mat-label>
+    <input matInput [formControl]="titleFilter" placeholder="Enter book title">
+  </mat-form-field>
+
+  <mat-form-field class="filter-item">
+    <mat-label>Category</mat-label>
+    <input matInput [formControl]="categoryFilter" placeholder="Enter category">
+  </mat-form-field>
+
+  <mat-checkbox class="filter-item" [formControl]="isDeletedFilter">Show Deleted</mat-checkbox>
+
+  <button mat-raised-button color="primary" class="filter-item" (click)="onClickSearch()">Search</button>
+  <button mat-raised-button color="primary" class="new-button" (click)="onClickNewBook()">
+    <mat-icon>add</mat-icon> New
+  </button>
+</div>
+
+<div class="table-container">
+  <table mat-table [dataSource]="bookTableDataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef> Title </th>
+      <td mat-cell *matCellDef="let book"> {{ book.title }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="authorName">
+      <th mat-header-cell *matHeaderCellDef> Author </th>
+      <td mat-cell *matCellDef="let book"> {{ book.authorName }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="publishedDate">
+      <th mat-header-cell *matHeaderCellDef> Published Date </th>
+      <td mat-cell *matCellDef="let book"> {{ book.publishedDate | date:'yyyy-MM-dd' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="genere">
+      <th mat-header-cell *matHeaderCellDef> Genre </th>
+      <td mat-cell *matCellDef="let book"> {{ book.genere }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="categories">
+      <th mat-header-cell *matHeaderCellDef> Categories </th>
+      <td mat-cell *matCellDef="let book">
+        <mat-chip-listbox>
+          @for (category of book.categories; track category) {
+            <mat-chip color="primary" selected>
+              <span style="font-size: 10px;">{{ category.name }}</span>
+            </mat-chip>
+          }
+        </mat-chip-listbox>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="createdDate">
+      <th mat-header-cell *matHeaderCellDef> Created Date </th>
+      <td mat-cell *matCellDef="let book"> {{ book.createdDate | date:'yyyy-MM-dd' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="modifiedDate">
+      <th mat-header-cell *matHeaderCellDef> Modified Date </th>
+      <td mat-cell *matCellDef="let book"> {{ book.modifiedDate | date:'yyyy-MM-dd' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="details">
+      <th mat-header-cell *matHeaderCellDef> Details </th>
+      <td mat-cell *matCellDef="let book">
+        <button mat-icon-button color="primary" matTooltip="Edit Book" (click)="onClickUpdateBook(book.id)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="bookTableColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: bookTableColumns;"></tr>
+  </table>
+</div>
+
+<div class="paginator-container">
+  <mat-paginator [length]="totalRecords" [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" (page)="onPageChange($event)">
+  </mat-paginator>
+</div>

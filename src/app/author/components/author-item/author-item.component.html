@@ -1,0 +1,103 @@
+<h2>@if (isEditMode()) { Edit Author } @else { New Author }</h2>
+
+<form [formGroup]="authorForm" (ngSubmit)="saveAuthor()">
+    <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" placeholder="Enter author name" />
+    </mat-form-field>
+    <div class="error-messages">
+        @if (authorForm.controls['name'].invalid && authorForm.controls['name'].touched) {
+
+            @if (authorForm.controls['name'].errors?.['required']) {
+                <span class="error-text">The author name is required.</span>
+            }
+
+            @if (authorForm.controls['name'].errors?.['minlength']) {
+                <span class="error-text">The author name requires a minimum of 3 characters.</span>
+            }
+        }
+    </div>
+
+    <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Date of Birth</mat-label>
+        <input matInput formControlName="dateOfBirth" placeholder="Enter author date of birth (yyyy-mm-dd)" 
+               [pattern]="datePattern" (input)="validateDateInput($event)" />
+        <mat-icon matSuffix (click)="openDatePicker(datePicker)">event</mat-icon>
+        <input #datePicker class="hidden-datepicker" type="date" (change)="onDateChange($event)"/>
+    </mat-form-field>
+    <div class="error-messages">
+        @if (authorForm.controls['dateOfBirth'].invalid && authorForm.controls['dateOfBirth'].touched) {
+            <span class="error-text">The date format must be yyyy-mm-dd.</span>
+        }
+    </div>
+
+    @if (isEditMode()) {
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Created Date</mat-label>
+            <input matInput formControlName="createdDate" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Modified Date</mat-label>
+            <input matInput formControlName="modifiedDate" />
+        </mat-form-field>
+
+        <mat-checkbox formControlName="isDeleted">Is Deleted</mat-checkbox>
+
+        <h3 class="books-title">Books</h3>
+        <div class="new-button-container">
+            <button mat-raised-button color="primary" class="new-button" type="button" (click)="onClickNewBook()">
+                <mat-icon>add</mat-icon>Add Book
+            </button>            
+        </div>
+        <div class="table-container">
+            <table mat-table [dataSource]="authorBooksTableDataSource" class="mat-elevation-z8">
+                <ng-container matColumnDef="title">
+                    <th mat-header-cell *matHeaderCellDef> Title </th>
+                    <td mat-cell *matCellDef="let book"> {{ book.title }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="publishedDate">
+                    <th mat-header-cell *matHeaderCellDef> Published Date </th>
+                    <td mat-cell *matCellDef="let book"> {{ book.publishedDate | date:'yyyy-MM-dd' }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="categories">
+                    <th mat-header-cell *matHeaderCellDef> Categories </th>
+                    <td mat-cell *matCellDef="let book">
+                      <mat-chip-listbox>
+                        @for (category of book.categories; track category) {
+                          <mat-chip color="primary" selected>
+                            <span style="font-size: 10px;">{{ category.name }}</span>
+                          </mat-chip>
+                        }
+                      </mat-chip-listbox>
+                    </td>
+                  </ng-container>                  
+
+                <ng-container matColumnDef="genere">
+                    <th mat-header-cell *matHeaderCellDef> Genere </th>
+                    <td mat-cell *matCellDef="let book"> {{ book.genere }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="createdDate">
+                    <th mat-header-cell *matHeaderCellDef> Created Date </th>
+                    <td mat-cell *matCellDef="let book"> {{ book.createdDate | date:'yyyy-MM-dd' }} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="authorBooksTableColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: authorBooksTableColumns;"></tr>
+            </table>
+        </div>
+    }
+
+    <div class="button-container">
+        <button mat-raised-button color="warn" type="button" (click)="onClickCancel()">
+            Cancel <mat-icon>cancel_presentation</mat-icon>
+        </button>
+
+        <button mat-raised-button color="primary" type="submit">
+            Save <mat-icon>save</mat-icon>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,7 @@
+<mat-dialog-content>
+    <app-book-item [authorId]="authorId" (bookAdded)="onBookAdded($event)" />
+</mat-dialog-content>
+  
+<mat-dialog-actions align="start">
+  <button mat-raised-button color="warn" (click)="onClose()">Close</button>
+</mat-dialog-actions>

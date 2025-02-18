@@ -1,0 +1,31 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 600px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.error-messages {
+    color: red;
+    font-size: 12px;
+    padding-bottom: 20px;
+}
+
+.checkbox-container {
+    margin-top: 8px;
+}
+
+.books-title {
+    margin-top: 10px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 16px;
+}

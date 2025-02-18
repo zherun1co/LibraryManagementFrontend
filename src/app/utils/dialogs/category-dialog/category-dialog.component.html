@@ -1,0 +1,7 @@
+<mat-dialog-content>
+    <app-category-list [isDialog]="true" (categorySelected)="onCategorySelected($event)" />
+</mat-dialog-content>
+  
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="warn" (click)="onClose()">Close</button>
+</mat-dialog-actions>

@@ -1,0 +1,141 @@
+@if(!authorId) {
+    <h2>@if (isEditMode()) { Edit Book } @else { New Book }</h2>
+}
+
+<form [formGroup]="bookForm" (ngSubmit)="saveBook()">
+    @if(!authorId){
+        <mat-form-field appearance="outline" class="catalog-input-container">
+            <mat-label>Author</mat-label>
+            <input matInput
+                type="text"
+                [formControl]="authorInput"
+                [matAutocomplete]="authorAuto"
+                placeholder="Search author"
+                (blur)="validateAuthorSelection()">
+            <mat-autocomplete #authorAuto="matAutocomplete" (optionSelected)="selectAuthor($event.option.value)">
+                @for (author of authors$ | async; track author) {
+                    <mat-option [value]="author">
+                        {{ author.name }}
+                    </mat-option>
+                }
+            </mat-autocomplete>
+        </mat-form-field>
+        @if(!authorId) {
+            <mat-icon matSuffix
+                class="catalog-icon"
+                matTooltip="Show authors list"
+                (click)="openAuthorListModal()">
+                playlist_add_check_circle
+            </mat-icon>
+        }
+        <div class="error-messages">
+            @if (bookForm.controls['authorId'].invalid && bookForm.controls['authorId'].touched) {
+
+                @if (bookForm.controls['authorId'].errors?.['required']) {
+                    <span class="error-text">The book author is required.</span>
+                }
+            }
+        </div>
+    }
+    
+    <mat-form-field appearance="outline" class="full-width-10-space">
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title" placeholder="Enter book title" />
+    </mat-form-field>
+    <div class="error-messages">
+        @if (bookForm.controls['title'].invalid && bookForm.controls['title'].touched) {
+
+            @if (bookForm.controls['title'].errors?.['required']) {
+                <span class="error-text">The book title is required.</span>
+            }
+
+            @if (bookForm.controls['title'].errors?.['minlength']) {
+                <span class="error-text">The book title requires a minimum of 3 characters.</span>
+            }
+        }
+    </div>
+
+    <mat-form-field appearance="outline" class="full-width-10-space">
+        <mat-label>Published Date</mat-label>
+        <input matInput formControlName="publishedDate" placeholder="Enter book published date (yyyy-mm-dd)" 
+               [pattern]="datePattern" (input)="validateDateInput($event)" />
+        <mat-icon matSuffix (click)="openDatePicker(datePicker)">event</mat-icon>
+        <input #datePicker class="hidden-datepicker" type="date" (change)="onDateChange($event)"/>
+    </mat-form-field>
+    <div class="error-messages">
+        @if (bookForm.controls['publishedDate'].invalid && bookForm.controls['publishedDate'].touched) {
+
+            @if (bookForm.controls['publishedDate'].invalid && bookForm.controls['publishedDate'].touched) {
+                <span class="error-text">The book published date format must be yyyy-mm-dd.</span>
+            }
+        }
+    </div>
+
+    <mat-form-field appearance="outline" class="full-width-10-space">
+        <mat-label>Genere</mat-label>
+        <input matInput formControlName="genere" placeholder="Enter book genere" />
+    </mat-form-field>
+    <div class="error-messages">
+        @if (bookForm.controls['genere'].invalid && bookForm.controls['genere'].touched) {
+
+            @if (bookForm.controls['genere'].errors?.['required']) {
+                <span class="error-text">The book genere is required.</span>
+            }
+
+            @if (bookForm.controls['genere'].errors?.['minlength']) {
+                <span class="error-text">The book genere requires a minimum of 3 characters.</span>
+            }
+        }
+    </div>
+    
+    <mat-form-field appearance="outline" class="catalog-input-container">
+        <mat-chip-listbox>
+            @for (category of bookForm.get('categories')?.value; track category) {
+                <mat-chip (removed)="removeCategory(category)" selectable="true" removable="true">
+                    {{ category.name }}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+            }
+        </mat-chip-listbox>
+    
+        <input type="text" matInput [formControl]="categoryInput" [matAutocomplete]="auto" placeholder="Search categories">
+    
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="addCategory($event.option.value)">
+            @for (category of categories$ | async; track category) {
+                <mat-option [value]="category">
+                    {{ category.name }}
+                </mat-option>
+            }
+        </mat-autocomplete>
+    </mat-form-field>
+    @if(!authorId) {
+        <mat-icon matSuffix
+            class="catalog-icon"
+            matTooltip="Show categories list"
+            (click)="openCategoryListModal()">
+            playlist_add_check_circle
+        </mat-icon>
+    }
+    
+    @if (isEditMode()) {
+        <mat-form-field appearance="outline" class="full-width-10-space">
+            <mat-label>Created Date</mat-label>
+            <input matInput formControlName="createdDate" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width-10-space">
+            <mat-label>Modified Date</mat-label>
+            <input matInput formControlName="modifiedDate" />
+        </mat-form-field>
+
+        <mat-checkbox formControlName="isDeleted" class="full-width-10-space">Is Deleted</mat-checkbox>
+    }
+
+    <div class="button-container">
+        @if(!authorId) {
+            <button mat-raised-button color="warn" type="button" (click)="onClickCancel()">Cancel</button>
+        }
+
+        <button mat-raised-button color="primary" type="submit">Save</button>
+    </div>
+</form>

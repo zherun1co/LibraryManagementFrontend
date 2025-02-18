@@ -1,0 +1,163 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidenav-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+mat-sidenav {
+    width: 200px;
+    background: white;
+    border-right: 1px solid #ddd;
+    flex-shrink: 0;
+}
+
+mat-sidenav-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: 100vh;
+    width: 100%;
+    overflow: auto;
+}
+
+.page-container {
+    flex-grow: 1;
+    width: 100%;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+router-outlet + * {
+    flex-grow: 1;
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.menu-header {
+    padding: 16px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    background: #4758b8;
+    color: #f0f0f0;
+}
+
+.menu-section {
+    font-size: 14px;
+    font-weight: bold;
+    color: #777;
+    padding: 8px 16px;
+}
+
+mat-nav-list {
+    padding: 0;
+}
+
+mat-list-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    cursor: pointer;
+}
+
+mat-list-item:hover {
+    background: #f5f5f5;
+}
+
+mat-list-item.active {
+    background: #f0f0f0;
+    color: #d32f2f;
+    font-weight: bold;
+}
+
+mat-icon {
+    color: #4758b8;
+}
+
+.mat-icon-text {
+    color: #4758b8;
+}
+
+mat-list-item.active mat-icon {
+    color: #d32f2f;
+}
+
+.new-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background-color: #3f51b5;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+
+.new-button mat-icon {
+    color: white;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+mat-table {
+    width: 100%;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.error-messages {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.hidden-datepicker {
+    display: none;
+}
+
+button[mat-raised-button][color="warn"] {
+    background-color: #d32f2f;
+    color: white;
+}
+
+button[mat-raised-button][color="primary"] {
+    background-color: #3f51b5;
+    color: white;
+}

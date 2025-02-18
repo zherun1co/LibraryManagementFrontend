@@ -1,0 +1,84 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 600px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.error-messages {
+    color: red;
+    font-size: 12px;
+    padding-bottom: 20px;
+}
+
+.checkbox-container {
+    margin-top: 8px;
+}
+
+.books-title {
+    margin-top: 16px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.table-container {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.mat-header-cell {
+    font-weight: bold;
+    text-align: left;
+}
+
+.mat-cell {
+    padding: 8px;
+}
+
+.hidden-datepicker {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    border: none;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.small-chip {
+    font-size: 5px;
+    padding: 4px 8px;
+    min-height: 24px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.new-button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 16px;
+}
+
+.new-button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}

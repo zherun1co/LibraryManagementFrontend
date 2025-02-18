@@ -1,0 +1,29 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav mode="side" opened>
+        <div class="menu-header">
+            <h3>Library Management</h3>
+        </div>
+        <mat-nav-list>
+            <a mat-list-item [routerLink]="'/books'" routerLinkActive="active">
+                <mat-icon>auto_stories</mat-icon>
+                &nbsp;<span class="mat-icon-text">Books</span>
+            </a>
+
+            <a mat-list-item [routerLink]="'/categories'" routerLinkActive="active">
+                <mat-icon>category</mat-icon>
+                &nbsp;<span class="mat-icon-text">Categories</span>
+            </a>
+
+            <a mat-list-item [routerLink]="'/authors'" routerLinkActive="active">
+                <mat-icon>folder_shared</mat-icon>
+                &nbsp;<span class="mat-icon-text">Authors</span>
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+
+<mat-sidenav-content>
+    <div class="page-container">
+        <router-outlet></router-outlet>
+    </div>
+</mat-sidenav-content>
+</mat-sidenav-container>
