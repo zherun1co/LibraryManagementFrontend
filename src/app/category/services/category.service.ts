@@ -14,7 +14,7 @@ export class CategoryService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getCategories(filter?: IFilterGetCategory): Observable<IDefaultResponse<ICategory[]>> {
+  public getCategories(filter?: IFilterGetCategory): Observable<IDefaultResponse<ICategory[]>> {
     let httpParams = new HttpParams();
 
     if (filter) {
@@ -33,15 +33,19 @@ export class CategoryService {
     });
   }
 
-  getCategoryById(id: string): Observable<IDefaultResponse<ICategory>> {
+  public getCategoryById(id: string): Observable<IDefaultResponse<ICategory>> {
     return this.httpClient.get<IDefaultResponse<ICategory>>(`${this.apiURL}/${id}`);
   }
 
-  addCategory(category: ICategory): Observable<IDefaultResponse<ICategory>>{
+  public addCategory(category: ICategory): Observable<IDefaultResponse<ICategory>>{
     return this.httpClient.post<IDefaultResponse<ICategory>>(this.apiURL, category);
   }
 
-  updateCategory(category: ICategory): Observable<IDefaultResponse<ICategory>>{
+  public updateCategory(category: ICategory): Observable<IDefaultResponse<ICategory>>{
     return this.httpClient.patch<IDefaultResponse<ICategory>>(`${this.apiURL}/${category.id}`, category);
+  }
+
+  public deleteCategory(id: string): Observable<IDefaultResponse> {
+    return this.httpClient.delete<IDefaultResponse>(`${this.apiURL}/${id}`);
   }
 }

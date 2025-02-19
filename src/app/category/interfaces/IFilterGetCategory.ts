@@ -1,5 +1,5 @@
 export interface IFilterGetCategory {
-    category: string;
+    category?: string | null;
     isDeleted?: boolean | null;
     limit?: number | null;
 }

@@ -40,7 +40,7 @@ export class BookService {
     return this.httpClient.get<IDefaultResponse<IBooks>>(this.apiURL, { params: httpParams });
   }
 
-  getBookById(id: string): Observable<IDefaultResponse<IBook>> {
+  public getBookById(id: string): Observable<IDefaultResponse<IBook>> {
     return this.httpClient.get<IDefaultResponse<IBook>>(`${this.apiURL}/${id}`);
   }
 
@@ -52,11 +52,15 @@ export class BookService {
     return this.httpClient.patch<IDefaultResponse<IBook>>(`${this.apiURL}/${book.id}`, book);
   }
 
-  addCategoryBook(id: string, category: IAuthorBookCategory): Observable<IDefaultResponse<IAuthorBookCategory>> {
+  public deleteBook(id: string): Observable<IDefaultResponse>{
+    return this.httpClient.delete<IDefaultResponse>(`${this.apiURL}/${id}`);
+  }
+
+  public addCategoryBook(id: string, category: IAuthorBookCategory): Observable<IDefaultResponse<IAuthorBookCategory>> {
     return this.httpClient.post<IDefaultResponse<IAuthorBookCategory>>(`${this.apiURL}/${id}/categories`, category);
   }
 
-  deleteCategoryBook(id: string, categoryId: string): Observable<IDefaultResponse> {
+  public deleteCategoryBook(id: string, categoryId: string): Observable<IDefaultResponse> {
     return this.httpClient.delete<IDefaultResponse>(`${this.apiURL}/${id}/categories/${categoryId}`);
   }
 }

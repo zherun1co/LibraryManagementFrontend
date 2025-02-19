@@ -36,19 +36,23 @@ export class AuthorService {
         });
     }
 
-    getAuthorById(id: string): Observable<IDefaultResponse<IAuthor>> {
+    public getAuthorById(id: string): Observable<IDefaultResponse<IAuthor>> {
       return this.httpClient.get<IDefaultResponse<IAuthor>>(`${this.apiURL}/${id}`);
     }
 
-    getAuthorBooksByAuthorId(id: string): Observable<IDefaultResponse<IAuthorBook[]>> {
+    public getAuthorBooksByAuthorId(id: string): Observable<IDefaultResponse<IAuthorBook[]>> {
       return this.httpClient.get<IDefaultResponse<IAuthorBook[]>>(`${this.apiURL}/${id}/books`);
     }
 
-    addAuthor(author: IAuthor): Observable<IDefaultResponse<IAuthor>> {
+    public addAuthor(author: IAuthor): Observable<IDefaultResponse<IAuthor>> {
       return this.httpClient.post<IDefaultResponse<IAuthor>>(this.apiURL, author);
     }
 
-    updateAuthor(author: IAuthor): Observable<IDefaultResponse<IAuthor>> {
+    public updateAuthor(author: IAuthor): Observable<IDefaultResponse<IAuthor>> {
       return this.httpClient.patch<IDefaultResponse<IAuthor>>(`${this.apiURL}/${author.id}`, author);
+    }
+
+    public deleteAuthor(id: string): Observable<IDefaultResponse>{
+      return this.httpClient.delete<IDefaultResponse>(`${this.apiURL}/${id}`);
     }
 }

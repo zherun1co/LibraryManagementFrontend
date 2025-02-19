@@ -5,11 +5,11 @@
 <div class="filter-container">
   <mat-form-field class="filter-item">
     <mat-label>Category</mat-label>
-    <input matInput [formControl]="categoryFilter" placeholder="Enter category">
+    <input matInput [formControl]="categoryNameFieldFilter" placeholder="Enter category">
   </mat-form-field>
 
   @if(!isDialog) {
-    <mat-checkbox class="filter-item" [formControl]="isDeletedFilter">Show Deleted</mat-checkbox>
+    <mat-checkbox class="filter-item" [formControl]="categoryIsDeletedFieldFilter">Show Deleted</mat-checkbox>
   }
 
   <button mat-raised-button color="primary" class="filter-item" (click)="onClickSearch()">Search</button>
@@ -49,8 +49,12 @@
           <button mat-icon-button color="primary" matTooltip="Edit Category" (click)="onClickUpdateCategory(category.id)">
             <mat-icon>edit</mat-icon>
           </button>
+          @if(!category.isDeleted) {
+            <button mat-icon-button color="primary" matTooltip="Delete Category" (click)="onClickDeleteCategory(category.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          }
         }
-
       </td>
     </ng-container>
 

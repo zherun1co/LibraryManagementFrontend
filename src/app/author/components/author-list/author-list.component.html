@@ -5,11 +5,11 @@
 <div class="filter-container">
   <mat-form-field class="filter-item">
     <mat-label>Author</mat-label>
-    <input matInput [formControl]="authorFilter" placeholder="Enter author name">
+    <input matInput [formControl]="authorFieldFilter" placeholder="Enter author name">
   </mat-form-field>
 
   @if(!isDialog) {
-    <mat-checkbox class="filter-item" [formControl]="isDeletedFilter">Show Deleted</mat-checkbox>
+    <mat-checkbox class="filter-item" [formControl]="isDeletedFieldFilter">Show Deleted</mat-checkbox>
   }
 
   <button mat-raised-button color="primary" class="filter-item" (click)="onClickSearch()">Search</button>
@@ -54,6 +54,11 @@
           <button mat-icon-button color="primary" matTooltip="Edit Author" (click)="onClickUpdateAuthor(author.id)">
             <mat-icon>edit</mat-icon>
           </button>
+          @if(!author.isDeleted) {
+            <button mat-icon-button color="primary" matTooltip="Delete Author" (click)="onClickDeleteAuthor(author.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          }
         }
       </td>
     </ng-container>
@@ -64,6 +69,6 @@
 </div>
 
 <div class="paginator-container">
-  <mat-paginator [length]="totalRecords" [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" (page)="onPageChange($event)">
+  <mat-paginator [length]="authorTableTotalRecords" [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" (page)="onPageChange($event)">
   </mat-paginator>
 </div>
