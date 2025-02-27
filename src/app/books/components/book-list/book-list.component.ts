@@ -30,6 +30,7 @@ import { ConfirmDialogComponent } from '../../../utils/dialogs/confirm-dialog/co
   imports: [
       CommonModule
      ,MatIconModule
+     ,MatChipsModule
      ,MatTableModule
      ,MatInputModule
      ,MatButtonModule
@@ -37,7 +38,6 @@ import { ConfirmDialogComponent } from '../../../utils/dialogs/confirm-dialog/co
      ,MatCheckboxModule
      ,MatFormFieldModule
      ,MatPaginatorModule
-     ,MatChipsModule
      ,ReactiveFormsModule
   ],
   templateUrl: './book-list.component.html',
