@@ -29,8 +29,12 @@ export class AppComponent {
   clipboard: Clipboard;
   statusPanel: string = '';
   httpClient: HttpClient;
+
+  isExpanded: boolean = true;
   
-  constructor(keycloakService: KeycloakService, clipboard: Clipboard, httpClient: HttpClient) {
+  constructor( keycloakService: KeycloakService
+              ,clipboard: Clipboard
+              ,httpClient: HttpClient) {
     this.keycloakService = keycloakService;
     this.clipboard = clipboard;
     this.httpClient = httpClient;
@@ -44,6 +48,10 @@ export class AppComponent {
     });
   }
 
+  toggleSidebar(): void {
+    this.isExpanded = !this.isExpanded;
+  }
+
   public login(): void {
     this.keycloakService.login();
   }
@@ -53,7 +61,7 @@ export class AppComponent {
   }
 
   public async isLoggedIn(): Promise<void> {
-    this.statusPanel = 'Is Logged In: ' + (await this.keycloakService.isLoggedIn());
+    this.statusPanel = 'Is Logged In: ' + (this.keycloakService.isLoggedIn());
   }
 
   public copyAccessTokenToClipboard(): void {
@@ -84,15 +92,6 @@ export class AppComponent {
       this.statusPanel = 'Failed to refresh the token. Check console logs';
       console.error('Failed to refresh the token:', error);
     }
-  }
-
-  public async sendHttpRequest() {
-    this.httpClient.get('https://ab81a40b274c481694de52422e7c28c3.api.mockbin.io/')
-      .subscribe(res => {
-        console.log(res);
-      });
-
-    this.statusPanel = "HTTP Request Sent. Please check browser's network tab";
   }
 
   public showRoles() {

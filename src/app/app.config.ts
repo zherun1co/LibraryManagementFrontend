@@ -1,8 +1,8 @@
 import { provideRouter } from '@angular/router';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ApplicationConfig, APP_INITIALIZER } from '@angular/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { KeycloakBearerInterceptor, KeycloakService } from 'keycloak-angular';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 import { routes } from './app.routes';
 
@@ -12,10 +12,10 @@ const initializeKeycloak = (keycloak: KeycloakService) => () =>
       url: 'http://localhost:8045',
       realm: 'library-management-realm',
       clientId: 'library-management-frontend-client'
-    },
-    initOptions: {
-      onLoad: 'check-sso', // 'login-required' , 'check-sso'
-      silentCheckSsoRedirectUri: window.location.origin + '/assets/silent-check-sso.html'
+    }, initOptions: {
+      onLoad: 'login-required', /* 'login-required' - 'check-sso' */
+      redirectUri: window.location.origin,
+      silentCheckSsoRedirectUri: window.location.origin
     },
     enableBearerInterceptor: true
   });
@@ -29,8 +29,7 @@ export const appConfig: ApplicationConfig = {
       useFactory: initializeKeycloak,
       multi: true,
       deps: [KeycloakService]
-    },
-    KeycloakService, {
+    }, KeycloakService, {
       provide: HTTP_INTERCEPTORS,
       useClass: KeycloakBearerInterceptor,
       multi: true

@@ -1,37 +1,38 @@
 <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav mode="side" opened>
-        <div class="menu-header">
-            <h3>Library Management</h3>
-        </div>
-        <mat-nav-list>
-            <a mat-list-item (click)="login()" routerLinkActive="active">
-                <mat-icon>login</mat-icon>
-                &nbsp;<span class="mat-icon-text">Login</span>
-            </a>
-            <a mat-list-item (click)="logout()" routerLinkActive="active">
-                <mat-icon>logout</mat-icon>
-                &nbsp;<span class="mat-icon-text">Logout</span>
-            </a>
-            <a mat-list-item [routerLink]="'/books'" routerLinkActive="active">
-                <mat-icon>auto_stories</mat-icon>
-                &nbsp;<span class="mat-icon-text">Books</span>
-            </a>
-
-            <a mat-list-item [routerLink]="'/categories'" routerLinkActive="active">
-                <mat-icon>category</mat-icon>
-                &nbsp;<span class="mat-icon-text">Categories</span>
-            </a>
-
-            <a mat-list-item [routerLink]="'/authors'" routerLinkActive="active">
-                <mat-icon>folder_shared</mat-icon>
-                &nbsp;<span class="mat-icon-text">Authors</span>
-            </a>
-        </mat-nav-list>
+    <mat-sidenav
+      mode="side"
+      [opened]="true"
+      [class.collapsed]="!isExpanded"
+    >
+      <div class="menu-header" (click)="toggleSidebar()">
+        <mat-icon>store</mat-icon>
+        <span *ngIf="isExpanded">Library Management</span>
+      </div>
+      <mat-nav-list>
+        <a mat-list-item [routerLink]="'/books'" routerLinkActive="active">
+          <mat-icon>auto_stories</mat-icon>
+          <span *ngIf="isExpanded" class="mat-icon-text">&nbsp;Books</span>
+        </a>
+        <a mat-list-item [routerLink]="'/categories'" routerLinkActive="active">
+          <mat-icon>category</mat-icon>
+          <span *ngIf="isExpanded" class="mat-icon-text">&nbsp;Categories</span>
+        </a>
+        <a mat-list-item [routerLink]="'/authors'" routerLinkActive="active">
+          <mat-icon>folder_shared</mat-icon>
+          <span *ngIf="isExpanded" class="mat-icon-text">&nbsp;Authors</span>
+        </a>
+        <a mat-list-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span *ngIf="isExpanded" class="mat-icon-text">&nbsp;Logout</span>
+        </a>
+      </mat-nav-list>
     </mat-sidenav>
-
-<mat-sidenav-content>
-    <div class="page-container">
+  
+    <mat-sidenav-content
+      [ngClass]="{'collapsed-content': !isExpanded}"
+      [ngStyle]="{'margin-left': isExpanded ? '200px' : '60px'}">
+      <div class="page-container">
         <router-outlet></router-outlet>
-    </div>
-</mat-sidenav-content>
-</mat-sidenav-container>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>  
